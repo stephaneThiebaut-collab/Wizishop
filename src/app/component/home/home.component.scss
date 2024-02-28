@@ -1,0 +1,16 @@
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.banner{
+    background-image: url("../../../assets/icone/logo-wizishop.png");
+    background-repeat: no-repeat; 
+    width: 50%;
+    background-color: #0A3782;
+    background-position: center;
+    margin: 2% 2% 2% 2%;
+    height: 200px;
+}
