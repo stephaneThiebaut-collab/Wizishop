@@ -8,11 +8,13 @@ import { ErreurPageComponent } from '../erreur-page/erreur-page.component';
 import { FicheProduitService } from '../../service/produit/fiche-produit.service';
 import { FicheProduit } from '../../service/interface/fiche-produit';
 import { FooterComponent } from '../layout/footer/footer.component';
-
+import { Panier } from '../../service/interface/panier';
+import { PanierService } from '../../service/panier/produit.service';
 @Component({
   selector: 'app-fiche-technique',
   standalone: true,
   imports: [NavbarComponent, SpinnerComponent, ErreurPageComponent, FooterComponent],
+
   templateUrl: './fiche-technique.component.html',
   styleUrl: './fiche-technique.component.scss'
 })
@@ -20,6 +22,8 @@ export class FicheTechniqueComponent implements OnInit {
   products!: Array<Produit>;
   ficheTechnique!: Array<FicheProduit>;
   uuidProduit!: string;
+  quantite: number = 1;
+  panier: Array<Panier> = [];
 
   // produit 
   name!: string;
@@ -31,6 +35,7 @@ export class FicheTechniqueComponent implements OnInit {
   imageProduit3!: string;
   prix!: number;
   delayLivraison!: number;
+  dateLivraison!: string;
 
   marque!: string;
   modele!: string;
@@ -66,12 +71,9 @@ export class FicheTechniqueComponent implements OnInit {
     this.displayProduct();
   }
   displayProduct(){
-    this.route.params.subscribe(params => {
-      const produitService = new ProduitService();
-      this.products = produitService.produit;
-
-      const ficheProduitService = new FicheProduitService();
-      this.ficheTechnique = ficheProduitService.ficheProduitArray;
+      this.route.params.subscribe(params => {
+      this.products = this.produitService.produit;
+      this.ficheTechnique = this.ficheProduitService.ficheProduitArray;
 
       this.uuidProduit = params['uuid'];
         const produitRecherche = this.products.find(item => item.uuid === this.uuidProduit);
@@ -88,6 +90,12 @@ export class FicheTechniqueComponent implements OnInit {
           this.imageProduit3 = produitRecherche.imageProduit3;
           this.prix = produitRecherche.prix;
           this.delayLivraison = produitRecherche.delayLivraison;
+
+          const dateActuelle = new Date();
+          const dateLivraison = new Date(dateActuelle.getTime() + (this.delayLivraison * 24 * 60 * 60 * 1000));
+          const options: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+          const dateLivraisonFormatee = dateLivraison.toLocaleDateString(undefined, options);
+          this.dateLivraison = dateLivraisonFormatee;
 
           this.marque = ficheTechniqueRecherche.marque;
           this.modele = ficheTechniqueRecherche.modele;
@@ -168,5 +176,23 @@ export class FicheTechniqueComponent implements OnInit {
     }
   }
 
-  constructor(private route: ActivatedRoute, private router: Router){}
+changeImg(chemin: string) {
+  const imageProduit = document.getElementById("imageProduit") as HTMLImageElement | null; // Assertion de type
+
+  if (imageProduit) {
+      imageProduit.src = chemin;
+  }
+}
+
+changeQuantite(event: Event) {
+  const selectElement = event.target as HTMLSelectElement;
+  const selectedValue = selectElement.value;
+  this.quantite = JSON.parse(selectedValue);
+}
+
+AddToPanier(){
+    this.panierService.addToPanier(this.uuidProduit,this.quantite,this.prix );
+}
+
+  constructor(private route: ActivatedRoute, private router: Router, private panierService: PanierService, private produitService: ProduitService, private ficheProduitService: FicheProduitService){}
 }

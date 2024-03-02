@@ -7,6 +7,7 @@ body {
 }
 
 .container {
+    font-family: 'Rubik', Arial, sans-serif;
     max-width: 800px;
     margin: 50px auto;
     padding: 20px;
@@ -16,16 +17,33 @@ body {
     & .marque, h1, .modele, .taille, .title-descritif, h2 {
         text-align: center;
     }
+    &-banner{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+.for-panier{
+    display: flex;
+    justify-content: space-around;
+}
+.delay-livraison {
+    text-align: center;
+}
+.img-produit{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .click-img{
-    border: 1px solid black;
-    width: 25%;
+    width: 30%;
     display: flex;
     justify-content: space-between;
+    cursor: pointer;
     & img {
         max-width: 55px;
         height: 55px;
-        border: 1px solid black;
     }
 }
 h1 {

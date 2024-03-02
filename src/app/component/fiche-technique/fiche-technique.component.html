@@ -1,90 +1,113 @@
 @defer {
-    <app-navbar></app-navbar>
+<app-navbar></app-navbar>
 
+<div class="container-banner">
     <div class="banner"></div>
+</div>
 
-    <div class="container">
-        <h1>{{this.name}} </h1>
-        <div>
-            <img class="product-image" [src]="this.imageProduit1" alt="Nom du Produit">
-            <div class="click-img">
-                <img [src]="this.imageProduit1" alt="">
-                <img [src]="this.imageProduit2" alt="">
-                <img [src]="this.imageProduit3" alt="">
-            </div>
+<div class="container">
+    <h1>{{this.name}} </h1>
+    <div class="img-produit">
+        <img class="product-image" id="imageProduit" [src]="this.imageProduit1" alt="Nom du Produit">
+        <div class="click-img">
+            <img (click)="changeImg(this.imageProduit1)" [src]="this.imageProduit1" alt="">
+            <img (click)="changeImg(this.imageProduit2)" [src]="this.imageProduit2" alt="">
+            <img (click)="changeImg(this.imageProduit3)" [src]="this.imageProduit3" alt="">
         </div>
-
-        <div class="marque">
-            <h3> {{this.marque}} </h3>
-        </div>
-
-        <div class="modele">
-            <h4>Modèle - {{this.modele}}</h4>
-        </div>
-    
-        <div class="taille">
-            <p>Taille - {{this.taille}}</p>
-        </div>
-
-        <hr>
-
-        <div class="descriptif">
-            <p class="title-descritif"> {{this.title}} </p>
-
-            <article>
-                {{this.descriptif1}}
-            </article>
-            @if (this.descriptif2 != "" || this.descriptif2 != null || this.descriptif2 != undefined) {
-                <article>
-                    {{this.descriptif2}}
-                </article>
-            }
-            @if (this.descriptif3 != "" || this.descriptif3 != null || this.descriptif3 != undefined) {
-                <article>
-                    {{this.descriptif3}}
-                </article>
-            }
-            
-        </div>
-        <hr>
-        <div class="specs">
-            <h2>Caractéristiques Techniques :</h2>
-            <ul>
-                <li>{{this.caracteristiques1}}</li>
-                <li>{{this.caracteristiques2}}</li>
-                <li>{{this.caracteristiques3}}</li>
-                <li>{{this.caracteristiques4}}</li>
-                @if (this.IsEmptyOrIsNullcaracteristiques5 == true) {
-                    <li>{{this.caracteristiques5}}</li>
-                }
-                @if (this.IsEmptyOrIsNullcaracteristiques6 == true) {
-                    <li>{{this.caracteristiques6}}</li>
-                }
-                @if (this.IsEmptyOrIsNullcaracteristiques7 == true) {
-                    <li>{{this.caracteristiques7}}</li>
-                }
-                @if (this.IsEmptyOrIsNullcaracteristiques8 == true) {
-                    <li>{{this.caracteristiques8}}</li>
-                }
-                @if (this.IsEmptyOrIsNullcaracteristiques9 == true) {
-                    <li>{{this.caracteristiques9}}</li>
-                }
-                @if (this.IsEmptyOrIsNullcaracteristiques10 == true) {
-                    <li>{{this.caracteristiques10}}</li>
-                }
-                @if (this.IsEmptyOrIsNullcaracteristiques11 == true) {
-                    <li>{{this.caracteristiques11}}</li>
-                }
-                @if (this.IsEmptyOrIsNullcaracteristiques12 == true) {
-                    <li>{{this.caracteristiques12}}</li>
-                }
-            </ul>
-        </div>
-    
-        <button>Ajouter au panier</button>
     </div>
-    <app-footer></app-footer>
-} 
+    <hr>
+
+    <div class="delay-livraison">
+        <p>Livraison possible le {{this.dateLivraison}}</p>
+    </div>
+
+    <div class="marque">
+        <h3> {{this.marque}} </h3>
+    </div>
+
+    <div class="modele">
+        <h4>Modèle - {{this.modele}}</h4>
+    </div>
+
+    <div class="taille">
+        <p>Taille - {{this.taille}}</p>
+    </div>
+
+    <hr>
+
+    <div class="descriptif">
+        <p class="title-descritif"> {{this.title}} </p>
+
+        <article>
+            {{this.descriptif1}}
+        </article>
+        @if (this.descriptif2 != "" || this.descriptif2 != null || this.descriptif2 != undefined) {
+        <article>
+            {{this.descriptif2}}
+        </article>
+        }
+        @if (this.descriptif3 != "" || this.descriptif3 != null || this.descriptif3 != undefined) {
+        <article>
+            {{this.descriptif3}}
+        </article>
+        }
+
+    </div>
+    <hr>
+    <div class="specs">
+        <h2>Caractéristiques Techniques :</h2>
+        <ul>
+            <li>{{this.caracteristiques1}}</li>
+            <li>{{this.caracteristiques2}}</li>
+            <li>{{this.caracteristiques3}}</li>
+            <li>{{this.caracteristiques4}}</li>
+            @if (this.IsEmptyOrIsNullcaracteristiques5 == true) {
+            <li>{{this.caracteristiques5}}</li>
+            }
+            @if (this.IsEmptyOrIsNullcaracteristiques6 == true) {
+            <li>{{this.caracteristiques6}}</li>
+            }
+            @if (this.IsEmptyOrIsNullcaracteristiques7 == true) {
+            <li>{{this.caracteristiques7}}</li>
+            }
+            @if (this.IsEmptyOrIsNullcaracteristiques8 == true) {
+            <li>{{this.caracteristiques8}}</li>
+            }
+            @if (this.IsEmptyOrIsNullcaracteristiques9 == true) {
+            <li>{{this.caracteristiques9}}</li>
+            }
+            @if (this.IsEmptyOrIsNullcaracteristiques10 == true) {
+            <li>{{this.caracteristiques10}}</li>
+            }
+            @if (this.IsEmptyOrIsNullcaracteristiques11 == true) {
+            <li>{{this.caracteristiques11}}</li>
+            }
+            @if (this.IsEmptyOrIsNullcaracteristiques12 == true) {
+            <li>{{this.caracteristiques12}}</li>
+            }
+        </ul>
+    </div>
+    <div class="for-panier">
+        
+        <br>
+        <select (change)="changeQuantite($event)" name="Quantite" id="Quantite">
+            <option value="0">--Choisissez une quantité--</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <button (click)="AddToPanier()">Ajouter au panier</button>
+    </div>
+</div>
+<app-footer></app-footer>
+}
 <!-- @loading (minimum 2000ms) {
     <app-spinner></app-spinner>
 } @error {
