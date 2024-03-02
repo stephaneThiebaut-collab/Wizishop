@@ -1,5 +1,38 @@
+@defer {
 <app-navbar></app-navbar>
 
-    <div class="container">
-        <div class="banner"></div>
+<div class="container">
+    <div class="banner"></div>
+    <div class="choose">
+        <ul>
+            <li>ordinateur</li>
+            <li>souris</li>
+            <li>ecran</li>
+        </ul>
     </div>
+    <div class="container-card">
+        @for (result of products; track result.uuid) {
+
+        <div class="card">
+            <img [src]="result.imageProduit1" alt="Produit">
+            <div class="card-content">
+                <h2>{{ result.name }}</h2>
+                <p> {{result.littleDescription}} </p>
+                <span class="price"> {{result.prix}}€ </span>
+                <button (click)="voirProduit(result.type ,result.uuid)">Voir le produit</button>
+            </div>
+
+        </div>
+        }
+
+        @empty {
+        <p>Aucun produit a afficher pour le moment</p>
+        }
+    </div>
+</div>
+<app-footer></app-footer>
+} @placeholder (minimum 2000ms) {
+<app-spinner></app-spinner>
+} @error {
+<app-erreur-page></app-erreur-page>
+}

@@ -1,0 +1,36 @@
+.footer {
+    background-color: #333;
+    /* Dark theme background color */
+    color: #fff;
+    /* Text color */
+    padding: 50px 0;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.column {
+    flex: 1;
+    text-align: center;
+}
+
+.footer-title {
+    color: #fff;
+
+    /* Title color */
+    
+    &-list {
+        
+        padding: 0;
+    }
+
+    &-list li {
+        
+        margin-bottom: 10px;
+    }
+}
+ul {
+    list-style: none;
+}

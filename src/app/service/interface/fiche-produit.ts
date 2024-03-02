@@ -1,0 +1,22 @@
+export interface FicheProduit {
+    uuidProduit: string,
+    marque: string,
+    modele: string,
+    taille: string,
+    title: string,
+    descriptif1: string,
+    descriptif2? : string,
+    descriptif3?: string,
+    caracteristiques1: string,
+    caracteristiques2: string,
+    caracteristiques3: string,
+    caracteristiques4: string,
+    caracteristiques5?: string,
+    caracteristiques6?: string,
+    caracteristiques7?: string,
+    caracteristiques8?: string,
+    caracteristiques9?: string,
+    caracteristiques10?: string,
+    caracteristiques11?: string,
+    caracteristiques12?: string
+}
