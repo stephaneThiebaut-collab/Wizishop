@@ -35,3 +35,16 @@
 ul {
     list-style: none;
 }
+
+@media only screen and (max-width: 425px) and (min-width: 320px){
+    .footer{
+        font-size: 20px;
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+    }
+}

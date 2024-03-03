@@ -5,4 +5,11 @@
     font-style: normal;
     font-stretch: normal;
 }
-
+body{
+    background-color: red;
+}
+@media (max-width: 1440px ) {
+    body{
+        background-color: red;
+    }
+}

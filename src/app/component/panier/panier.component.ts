@@ -8,6 +8,7 @@ import { ErreurPageComponent } from '../erreur-page/erreur-page.component';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProduitService } from '../../service/produit/produit.service';
 import { Produit } from '../../service/interface/produit';
+import { ResultFinal } from '../../service/interface/result-final';
 
 @Component({
   selector: 'app-panier',
@@ -18,10 +19,13 @@ import { Produit } from '../../service/interface/produit';
 })
 export class PanierComponent implements OnInit {
   Userpanier!: Array<Panier>;
-  produits: Array<Produit> = [];
-  resultFinalProduit: Array<{uuid:string, quantite: number, prix: number, name: string, prixTotalQuantite: number}> = [];
+  produits!: Array<Produit>;
+  resultFinalProduit!: Array<ResultFinal>;
   result!: number;
+  prixTotal: number= 0;
   userCommandeForm!: FormGroup;
+  formIsVisible: boolean = false;
+
   ngOnInit(): void {
     this.panierUser();
     this.userCommandeForm = this.fb.group({
@@ -32,16 +36,9 @@ export class PanierComponent implements OnInit {
       message:[null]
     })
   }
-  formUser(){
-    this.userCommandeForm = this.fb.group({
-      email: [null, Validators.required],
-      userName: [null, Validators.required],
-      userLastName: [null, Validators.required],
-      addresse: [null, Validators.required],
-      message:[null]
-    })
-  }
+
   panierUser(){
+    this.resultFinalProduit = this.panier.resultFinalPanier;
     this.Userpanier = this.panier.panier;
     this.produits = this.arrayProduit.produit;
     for (let i = 0; i < this.Userpanier.length; i++) {
@@ -49,20 +46,21 @@ export class PanierComponent implements OnInit {
       const produitRecherche = this.produits.find(item => item.uuid === element.uuid);
       if (produitRecherche) {
         this.result = element.quantite * element.prix;
-        this.resultFinalProduit.push({uuid: element.uuid, quantite: element.quantite, prix: element.prix, name: produitRecherche.name, prixTotalQuantite: this.result});
-        console.log(this.resultFinalProduit);
-      } else {
-        console.log("empty")
+        this.prixTotal += this.result;
+        console.log(this.prixTotal)
+        this.panier.pushArticle(element.uuid, element.quantite, element.prix, produitRecherche.name, this.result);
       }
     }
   }
+
   onSubmit(){
     if (this.userCommandeForm.valid) {
       alert(this.getUniqueId())
-    }else {
+    } else {
       alert("Tout les champs avec * sont obligatoire");
     }
   }
+
   getUniqueId(): string {
     const stringArr = [];
     for(let i = 0; i< Math.floor(Math.random() * 50); i++){
@@ -70,6 +68,13 @@ export class PanierComponent implements OnInit {
       stringArr.push(S4);
     }
     return stringArr.join('-');
+  }
+
+  removePanier(uuid: string){
+    this.panier.removePanier(uuid);
+  }
+  onCommande(){
+    this.formIsVisible = !this.formIsVisible;
   }
   constructor(private panier: PanierService, private fb: FormBuilder, private arrayProduit: ProduitService){}
 }

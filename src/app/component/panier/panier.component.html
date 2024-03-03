@@ -1,61 +1,71 @@
 @defer {
     <app-navbar></app-navbar>
-    <div class="container">
-        <h1>Panier</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Produit</th>
-                    <th>Prix</th>
-                    <th>Quantité</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (resultFinalProduits of resultFinalProduit; track resultFinalProduits.uuid) {
+    <div class="bodyContainer">
+        <div class="container">
+            <h1>Panier</h1>
+            <table>
+                <thead>
                     <tr>
-                        <td> {{resultFinalProduits.name}} </td>
-                        <td> {{resultFinalProduits.prix}} </td>
-                        <td> {{resultFinalProduits.quantite}} </td>
-                        <td> {{resultFinalProduits.prixTotalQuantite}} </td>
+                        <th>Produit</th>
+                        <th>Prix</th>
+                        <th>Quantité</th>
+                        <th>Total</th>
+                        <th>Retirer du panier</th>
                     </tr>
-                } @empty {
-                    <p>Aucun produit pour le moment</p>
-                    
-                }
-            </tbody>
-        </table>
-        <button class="checkout-btn">Passer la commande</button>
+                </thead>
+                <tbody>
+                    @for (resultFinalProduits of resultFinalProduit; track resultFinalProduits.uuid) {
+                        <tr>
+                            <td> {{resultFinalProduits.name}} </td>
+                            <td> {{resultFinalProduits.prix}}€ </td>
+                            <td> {{resultFinalProduits.quantite}} </td>
+                            <td> {{resultFinalProduits.prixTotalQuantite}}€ </td>
+                            <td> <button (click)="removePanier(resultFinalProduits.uuid)" class="remove-article">Retirer du panier</button> </td>
+                        </tr>
+                    } @empty {
+                        <p>Aucun produit pour le moment</p>
+                        
+                    }
+                </tbody>
+            </table>
+            <div>
+                <p>Prix total de la commande: {{this.prixTotal}}€</p>
+            </div>
+            <button class="checkout-btn" (click)="onCommande()">Passer la commande</button>
+        </div>
+        
+        @if (this.formIsVisible == true) {
+            <div class="formContainer">
+                <form [formGroup]="userCommandeForm" (ngSubmit)="onSubmit()">
+                    <div>
+                        <label for="email">Email: *</label>
+                        <input type="email" name="email" id="email" placeholder="ex: email@gmail.com" formControlName="email" required>
+                    </div>
+                    <div>
+                        <label for="name">Nom: *</label>
+                        <input type="text" name="name" id="name" placeholder="ex: Monsieur Dupont" formControlName="userName" required>
+                    </div>
+                    <div>
+                        <label for="lastName">Prenom: *</label>
+                        <input type="text" name="lastName" id="lastName" placeholder="ex: Albert" formControlName="userLastName" required>
+                    </div>
+                    <div>
+                        <label for="address">Adresse: *</label>
+                        <input type="text" name="address" id="address" placeholder="ex: 11 avenue de France" formControlName="addresse">
+                    </div>
+                    <div>
+                        <label for="message">Message</label>
+                        <textarea name="message" id="message" cols="30" rows="10" placeholder="ex: Information complementaire sur la livraison" formControlName="message"></textarea>
+                    </div>
+                    <button type="submit" [disabled]="!this.userCommandeForm.valid">Commander</button>
+                </form>
+            </div>
+        } 
+        <app-footer></app-footer>
     </div>
-    
-    <div>
-        <form [formGroup]="userCommandeForm" (ngSubmit)="onSubmit()">
-            <div>
-                <label for="email">Email: *</label>
-                <input type="email" name="email" id="email" placeholder="ex: email@gmail.com" formControlName="email" required>
-            </div>
-            <div>
-                <label for="name">Nom: *</label>
-                <input type="text" name="name" id="name" placeholder="ex: Monsieur Dupont" formControlName="userName" required>
-            </div>
-            <div>
-                <label for="lastName">Prenom: *</label>
-                <input type="text" name="lastName" id="lastName" placeholder="ex: Albert" formControlName="userLastName" required>
-            </div>
-            <div>
-                <label for="address">Adresse: *</label>
-                <input type="text" name="address" id="address" placeholder="ex: 11 avenue de France" formControlName="addresse">
-            </div>
-            <div>
-                <label for="message">Message</label>
-                <textarea name="message" id="message" cols="30" rows="10" placeholder="ex: Information complementaire sur la livraison" formControlName="message"></textarea>
-            </div>
-            <button type="submit" [disabled]="!this.userCommandeForm.valid">Commander</button>
-        </form>
-    </div>
-    <app-footer></app-footer>
-} @loading (minimum 2000ms) {
-    <app-panier></app-panier>
+}
+<!-- @loading (minimum 2000ms) {
+    <app-spinner></app-spinner>
 } @error {
     <app-erreur-page></app-erreur-page>
-}
+} -->
