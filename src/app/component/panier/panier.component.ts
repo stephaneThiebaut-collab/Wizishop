@@ -55,7 +55,11 @@ export class PanierComponent implements OnInit {
 
   onSubmit(){
     if (this.userCommandeForm.valid) {
-      alert(this.getUniqueId())
+      if (this.Userpanier.length > 0) {
+        alert(`Votre commande a bien été enregistrée. Elle est enregistrée avec l'ID numéro : ${this.getUniqueId()}. Merci de votre confiance.`);
+      } else {
+        alert("Votre panier est vide");
+      }
     } else {
       alert("Tout les champs avec * sont obligatoire");
     }

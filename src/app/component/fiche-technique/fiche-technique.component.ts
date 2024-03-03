@@ -191,7 +191,8 @@ changeQuantite(event: Event) {
 }
 
 AddToPanier(){
-    this.panierService.addToPanier(this.uuidProduit,this.quantite,this.prix );
+    this.panierService.addToPanier(this.uuidProduit,this.quantite,this.prix);
+    this.router.navigateByUrl("/");
 }
 
   constructor(private route: ActivatedRoute, private router: Router, private panierService: PanierService, private produitService: ProduitService, private ficheProduitService: FicheProduitService){}

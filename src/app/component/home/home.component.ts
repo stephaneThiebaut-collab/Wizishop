@@ -16,18 +16,16 @@ import { FooterComponent } from '../layout/footer/footer.component';
 })
 export class HomeComponent implements OnInit {
   products!: Array<Produit>;
-  //For prod mod
-  //documentLoaded: any = document.readyState;
-  constructor(private router: Router){}
+  constructor(private router: Router, private produitService: ProduitService){}
   
   ngOnInit(): void {
     this.displayProduct();
   }
   displayProduct(){
-    const produitService = new ProduitService();
-    this.products = produitService.produit;
+    this.products = this.produitService.produit;
   }
   voirProduit(categorie: string, uuid: string){
     this.router.navigateByUrl(`fiche-technique/${categorie}/${uuid}`)
   }
+  
 }
